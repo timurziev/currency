@@ -29,7 +29,7 @@
             <tr v-for="item in items">
                 <td>@{{ item.name }}</td>
                 <td>@{{ item.volume }}</td>
-                <td>@{{ item.price ? item.price.amount : '' }}</td>
+                <td>@{{ item.price ? (Math.round(item.price.amount * 100)/100).toFixed(2) : '' }}</td>
             </tr>
         </table>
         <button @click="load">Update</button>
