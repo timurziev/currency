@@ -5,6 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="root_url" content="{{ Request::url() }}">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
     <title>Currency</title>
 
@@ -16,26 +17,35 @@
             height: 50px;
             padding-right: 20px;
         }
+        body tr:nth-of-type(odd){
+            background: #ddd;
+        }
+        button {
+            float: right;
+        }
     </style>
 </head>
 <body>
-    <div id="app">
-        <table>
-            <tr>
-                <th>Name</th>
-                <th>Volume</th>
-                <th>Amount</th>
-            </tr>
-            <tr v-for="item in items">
-                <td>@{{ item.name }}</td>
-                <td>@{{ item.volume }}</td>
-                <td>@{{ item.price ? (Math.round(item.price.amount * 100)/100).toFixed(2) : '' }}</td>
-            </tr>
-        </table>
-        <button @click="load">Update</button>
+    <div id="app" class="container">
+        <div class="row">
+            <div class="col-md-8 offset-md-2">
+                <table class="table table-striped">
+                    <tr>
+                        <th>Name</th>
+                        <th>Volume</th>
+                        <th>Amount</th>
+                    </tr>
+                    <tr v-for="item in items">
+                        <td>@{{ item.name }}</td>
+                        <td>@{{ item.volume }}</td>
+                        <td>@{{ item.price ? (Math.round(item.price.amount * 100)/100).toFixed(2) : '' }}</td>
+                    </tr>
+                </table>
+                <button class="btn btn-success" @click="load">Update</button>
+            </div>
+        </div>
     </div>
     <script>
-
         let ROOT_URL = document.querySelector('meta[name=root_url]').getAttribute('content');
 
         var app = new Vue({
@@ -67,7 +77,6 @@
                 }
             }
         })
-
     </script>
 </body>
 </html>
