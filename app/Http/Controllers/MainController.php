@@ -8,9 +8,9 @@ class MainController extends Controller
 {
     public function index()
     {
-        $data = collect(json_decode(file_get_contents('http://phisix-api3.appspot.com/stocks.json'), true));
+        $url = file_get_contents('http://phisix-api3.appspot.com/stocks.json');
+        $data = collect(json_decode($url, true));
 
         return response()->json($data['stock']);
-        return view('welcome', compact('data'));
     }
 }

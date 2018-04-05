@@ -19,23 +19,20 @@
     </style>
 </head>
 <body>
-    <div id="app" class="container">
-        <div class="row">
-            <div class="col-md-8 col-md-offset-2">
-                <table>
-                    <tr>
-                        <th>Name</th>
-                        <th>Volume</th>
-                        <th>Amount</th>
-                    </tr>
-                    <tr v-for="item in items">
-                        <td>@{{ item.name }}</td>
-                        <td>@{{ item.volume }}</td>
-                        <td>@{{ item.price ? item.price.amount : '' }}</td>
-                    </tr>
-                </table>
-            </div>
-        </div>
+    <div id="app">
+        <table>
+            <tr>
+                <th>Name</th>
+                <th>Volume</th>
+                <th>Amount</th>
+            </tr>
+            <tr v-for="item in items">
+                <td>@{{ item.name }}</td>
+                <td>@{{ item.volume }}</td>
+                <td>@{{ item.price ? item.price.amount : '' }}</td>
+            </tr>
+        </table>
+        <button @click="load">Update</button>
     </div>
     <script>
 
@@ -51,8 +48,23 @@
             created() {
                 axios.get(ROOT_URL + '/api').then(response => {
                     this.items = response.data;
-                    console.log(response.data);
                 });
+            },
+
+            mounted() {
+                var self = this;
+                setInterval(function(){
+                    axios.get(ROOT_URL + '/api').then(response =>
+                    self.items = response.data);
+                }, 15000);
+            },
+
+            methods: {
+                load() {
+                    axios.get(ROOT_URL + '/api').then(response => {
+                        this.items = response.data;
+                    });
+                }
             }
         })
 
