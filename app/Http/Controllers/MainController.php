@@ -10,6 +10,7 @@ class MainController extends Controller
     {
         $data = collect(json_decode(file_get_contents('http://phisix-api3.appspot.com/stocks.json'), true));
 
+        return response()->json($data['stock']);
         return view('welcome', compact('data'));
     }
 }
